@@ -40,6 +40,11 @@ def distinct_list(weightings: list, keyword: str) -> list:
 
 
 def setup(cur: Cursor):
+    # Calculate weights
     weights = calculate_weight(cur)
-    for weight in weights:
-        db_connector.insert_weight(weight["keyword"], weight["count"], cur)
+    
+    # Ensure the data is in the correct format (list of tuples)
+    weights_data = [(weight["keyword"], weight["count"]) for weight in weights]
+    
+    # Insert weights into the database
+    db_connector.insert_weights(weights_data, cur)

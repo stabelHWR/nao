@@ -3,7 +3,7 @@ from os.path import isfile, join
 import requests
 import time
 
-folder = './testaudios/male_age20_german/noisy/ohne_stopps'
+folder = './male_age20_german/noisy/ohne_stops'
 
 onlyfiles = [f for f in listdir(folder) if isfile(join(folder, f))]
 

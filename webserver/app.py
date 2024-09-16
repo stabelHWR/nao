@@ -43,9 +43,9 @@ def get_answer(question):
         return "Ich habe diese Frage nicht verstanden oder ich habe dazu leider keine Antwort."
 
     # Get answer with caseID from database
-    answer = db_connector.get_answer(caseID, cursor)
+    answer = db_connector.get_answer_from_db(caseID, cursor)
     if answer is None:
-        return "-1"
+        return "Ich habe keine Antwort auf deise Frage."
 
     return answer
 
