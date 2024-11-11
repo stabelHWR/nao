@@ -52,6 +52,7 @@ def get_answer(question):
 
 @app.route('/', methods=['POST'])
 def post_request():
+    overall_start = time.time_ns()
     try:
         # Get audio with question from POST request
         if 'file' not in request.files:
@@ -67,24 +68,31 @@ def post_request():
         file.save(filename)
 
         # Measure time
-        start = time.time()
+        start = time.time_ns()
 
         # Get audio transcription from transcriber
         question = transcribe(filename)
 
         # Measure time
-        end = time.time()
+        end = time.time_ns()
 
         # Log time and question
         print("--------------------")
-        print(f"Time: {end - start}")
+        print(f"Transcribing time: {end - start}")
         print(f"Question: {question}")
         print("--------------------")
 
         # Get the answer
-        answer = get_answer(question) 
+        start_answer_time = time.time_ns()
+        answer = get_answer(question)
+        
+        end_answer_time = time.time_ns()
+
+        print(f"Answer Algorithm Time: {end_answer_time - start_answer_time }")
 
         # Return the response as JSON
+        overall_end = time.time_ns()
+        print(f"Overall Time: {overall_end - overall_start }")
         return jsonify({'answer': answer}), 200
 
     except Exception as e:
@@ -92,6 +100,7 @@ def post_request():
         print(f"An error occurred: {e}")
         traceback.print_exc()
         return jsonify({'error': 'An internal error occurred'}), 500
+
     
 @app.route('/', methods=['GET'])
 def get_request():

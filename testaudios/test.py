@@ -11,14 +11,14 @@ def transcribe():
     for file in onlyfiles:
         filename = folder + '/' + file
         with open(filename, 'rb') as f:
-            start = time.time()
+            start = time.time_ns()
             r = requests.post('http://127.0.0.1:1222/', files={'file': f})
             print("Status Code:", r.status_code)
             print("Response Headers:", r.headers)
             print("Response Content:", r.text)
             try:
                 response_json = r.json()
-                end = time.time()
+                end = time.time_ns()
                 print("--------------------")
                 print("Question:", file)
                 print("Answer:", response_json.get('answer', 'N/A'))
