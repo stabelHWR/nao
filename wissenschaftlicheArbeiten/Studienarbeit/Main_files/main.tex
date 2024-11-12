@@ -1,0 +1,267 @@
+% !TEX root = main.tex
+\documentclass[12pt, oneside]{article}
+
+
+%% This template was forked from Winkelmann Template @ OVRLEAF
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%   Zusaetzliche Pakete  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[bookmarks]{hyperref}
+\usepackage[ngerman]{babel}
+\usepackage{acronym} 
+\usepackage[T1]{fontenc}
+\usepackage[utf8]
+{inputenc}
+\usepackage{array}
+ \usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{babel}
+\usepackage[T1]{fontenc}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{enumerate}  
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{enumitem,amssymb}
+\usepackage{enumitem}
+\usepackage{a4wide}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage{palatino}
+\usepackage{float}
+\usepackage{glossaries}
+\RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
+\usepackage{listings}
+\usepackage[justification=centering, labelfont=bf, textfont=bf]{caption}
+\usepackage[a4paper, margin=0cm, left=3cm, top=2.5cm, right=2cm, bottom=3.5cm]{geometry} 
+\usepackage{etoolbox}
+\usepackage{acronym}
+\usepackage{titlesec}
+\usepackage[titles]{tocloft}
+\usepackage{longtable}
+\usepackage{xcolor,colortbl}
+\usepackage{pdfpages}
+\usepackage[paper=portrait,pagesize]{typearea}
+\usepackage[labelfont=bf]{caption} % optional
+\usepackage{ragged2e}
+\usepackage{lscape}
+\usepackage{graphicx}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{csquotes}
+\usepackage{biblatex}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\addbibresource{literature.bib}  
+\bibliography{literature}
+
+%\usepackage{fontspec}
+
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+
+\setlength\cftparskip{-2pt}
+\setlength\cftbeforesecskip{0pt}
+\setlength\cftaftertoctitleskip{0pt}
+
+\DeclareCaptionFormat{myformat}{\fontsize{10}{0}\selectfont#1#2#3}
+\captionsetup{format=myformat}
+
+\setlength\parindent{0pt}
+\setlength{\parskip}{6pt}
+\setlength{\headheight}{0.8cm}
+
+\linespread{1.25}
+
+%\setlength{\cftbeforesecskip}{1.75pt}
+
+\renewcommand{\cftfigpresnum}{Abbildung }
+\renewcommand{\cfttabpresnum}{Tabelle }
+
+\renewcommand{\cftfigaftersnum}{:}
+\renewcommand{\cfttabaftersnum}{:}
+
+\setlength{\cftfignumwidth}{2.75cm}
+\setlength{\cfttabnumwidth}{2cm}
+
+\setlength{\cftfigindent}{0cm}
+\setlength{\cfttabindent}{0cm}
+
+\renewcommand{\figurename}{Abbildung}
+\renewcommand{\tablename}{Tabelle}
+
+\newcommand{\studentNameOne}{Anna Stabel}
+\newcommand{\studentNameTwo}{Caroline Sarah Schäfer}
+\newcommand{\studentNameThree}{Sofie Wagner}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Definition der Kopfzeile %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.5pt} %Linie oben
+\renewcommand{\footrulewidth}{0.5pt} %Linie oben
+\renewcommand{\sectionmark}[1]{\markboth{}{}}
+\fancyhf{}
+\headsep = 1cm
+\fancyfoot[R]{\rule[+1.5ex]{0pt}{1ex}\thepage} %Kopfzeile rechts bzw. außen
+\fancyfoot[L]{\nouppercase{\leftmark}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Definition des Deckblattes und der Titelseite  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\fancyhead[L]{\rule[-1.5ex]{0pt}{1ex} NAO Studienprojekt} %Kopfzeile links bzw. innen
+
+\thispagestyle{empty}
+
+\includegraphics[width=5in]{../images/HWR.png}
+
+\begin{center}
+\vspace*{\stretch{1}}
+\Huge
+NAO Spracherkennung\\
+\Large
+Studienprojekt
+\vspace*{\stretch{1}}
+\hrule
+\end{center}
+
+\vspace*{\stretch{2}}
+
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l l} 
+    \textbf{Name, Vorname:}  & \hspace{3cm} \studentNameOne,\\ 
+    {} & \hspace{3cm}\studentNameTwo,\\
+    {} & \hspace{3cm}\studentNameThree, \\
+    \textbf{Semester:} & \hspace{3cm}WiSe 2024/25\\
+    \textbf{Fachbereich:} & \hspace{3cm}Duales Studium (FB 2)\\
+    \textbf{Studiengang:} & \hspace{3cm}Duales Studium Informatik\\
+    \textbf{Modul:} & \hspace{3cm}Studienprojekt II\\
+    \textbf{Betreuer Hochschule:} & \hspace{3cm}Dagmar Monet Diaz\\
+    \textbf{Anzahl der Wörter:} & \hspace{3cm}0
+\\
+\end{tabular}
+
+
+\titlespacing{\section}{0pt}{0pt}{0pt}
+\titlespacing{\subsection}{0pt}{6pt}{0pt}
+\titlespacing{\subsubsection}{0pt}{6pt}{0pt}
+\pagenumbering{roman}
+
+\newpage
+\textbf{Unterschriften}
+\newline
+
+\begin{tabular}{lp{4em}l} 
+ \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3} 
+Ort, Datum     && \studentNameOne 
+\end{tabular}
+
+\begin{tabular}{lp{4em}l} 
+ \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3} 
+Ort, Datum     && \studentNameTwo
+\end{tabular}
+
+\begin{tabular}{lp{4em}l} 
+ \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3} 
+Ort, Datum     && \studentNameThree 
+\end{tabular}
+
+\begin{tabular}{lp{4em}l} 
+ \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3} 
+Ort, Datum     && Ausbilder*in SAP 
+\end{tabular}
+
+\begin{tabular}{lp{4em}l} 
+ \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3} 
+Ort, Datum     && Ausbilder*in HZB
+\end{tabular}
+
+\newpage
+
+
+\tableofcontents
+\newpage
+
+\begin{acronym}[ECU]
+\section*{Akronyme}
+
+\addcontentsline{toc}{section}{\protect\numberline{}Akronyme}
+    \acro{knowlegdeGraphs}[KG]{Knowlegde Graphs}
+
+\end{acronym}
+
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\newpage
+
+
+
+
+\printglossaries
+
+
+
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Hauptteil  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{content.tex}
+
+\newpage
+\addcontentsline{toc}{section}{Bibliography}
+\markboth{Bibliography}{Bibliography}
+\printbibliography[title=Bibliography]
+
+\newpage
+\listoffigures
+\addcontentsline{toc}{section}{Abbildungsverzeichnis}%
+\markboth{Abbildungsverzeichnis}{Abbildungsverzeichnis}
+
+\newpage
+
+\newpage
+\end{document}

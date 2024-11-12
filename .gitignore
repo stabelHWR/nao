@@ -3,8 +3,10 @@
 __pycache__
 .vscode
 main.lof
+main.log
 main.bcf
 main.out
 main.aux
 main.toc
 main.synctex.gz
+main.run.xml
