@@ -156,33 +156,17 @@
 
 \thispagestyle{empty}
 
-\includegraphics[width=5in]{../images/HWR.png}
-
 \begin{center}
 \vspace*{\stretch{1}}
 \Huge
-NAO Spracherkennung\\
+NAO Dokumentation\\
 \Large
-Studienprojekt
+Dokumentation
 \vspace*{\stretch{1}}
 \hrule
 \end{center}
 
-\vspace*{\stretch{2}}
-
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{l l} 
-    \textbf{Name, Vorname:}  & \hspace{3cm} \studentNameOne,\\ 
-    {} & \hspace{3cm}\studentNameTwo,\\
-    {} & \hspace{3cm}\studentNameThree, \\
-    \textbf{Semester:} & \hspace{3cm}WiSe 2024/25\\
-    \textbf{Fachbereich:} & \hspace{3cm}Duales Studium (FB 2)\\
-    \textbf{Studiengang:} & \hspace{3cm}Duales Studium Informatik\\
-    \textbf{Modul:} & \hspace{3cm}Studienprojekt II\\
-    \textbf{Betreuer Hochschule:} & \hspace{3cm}Dagmar Monet Diaz\\
-    \textbf{Anzahl der Wörter:} & \hspace{3cm}0
-\\
-\end{tabular}
+\textbf{Erstellt von:} \studentNameOne, \studentNameTwo, \studentNameThree
 
 
 \titlespacing{\section}{0pt}{0pt}{0pt}
@@ -191,68 +175,10 @@ Studienprojekt
 \pagenumbering{roman}
 
 \newpage
-\textbf{Unterschriften}
-\newline
-
-\begin{tabular}{lp{4em}l} 
- \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3} 
-Ort, Datum     && \studentNameOne 
-\end{tabular}
-
-\begin{tabular}{lp{4em}l} 
- \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3} 
-Ort, Datum     && \studentNameTwo
-\end{tabular}
-
-\begin{tabular}{lp{4em}l} 
- \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3} 
-Ort, Datum     && \studentNameThree 
-\end{tabular}
-
-\begin{tabular}{lp{4em}l} 
- \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3} 
-Ort, Datum     && Ausbilder*in SAP 
-\end{tabular}
-
-\begin{tabular}{lp{4em}l} 
- \hspace{5cm}   && \hspace{4cm} \\\cline{1-1}\cline{3-3} 
-Ort, Datum     && Ausbilder*in HZB
-\end{tabular}
-
-\newpage
-
-\section*{Abstract}
-\addcontentsline{toc}{section}{Abstract}%
-\markboth{Abstract}{Abstract}
-\noindent
-\input{./abstract.tex}
-
-\newpage
 
 \tableofcontents
-\newpage
-
-\begin{acronym}[ECU]
-\section*{Akronyme}
-
-\addcontentsline{toc}{section}{\protect\numberline{}Akronyme}
-    \acro{knowlegdeGraphs}[KG]{Knowlegde Graphs}
-    \acro{hwr}[HWR]{Hochschule für Wirtschaft und Recht}
-    \acro{OpenIE}[OpenIE]{Open Information Extraction}
-    \acro{ML}[ML]{Maschinelles Lernen}
-    \acro{TSP:GT}[TSP]{Traveling Salesman Probelem}
-
-\end{acronym}
 
 \newpage
-\pagenumbering{arabic}
-\setcounter{page}{1}
-\newpage
-
-
-
-
-\printglossaries
 
 
 
@@ -262,36 +188,4 @@ Ort, Datum     && Ausbilder*in HZB
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{content.tex}
 
-\newpage
-\addcontentsline{toc}{section}{Bibliography}
-\markboth{Bibliography}{Bibliography}
-\printbibliography[title=Bibliography]
-
-\newpage
-\listoffigures
-\addcontentsline{toc}{section}{Abbildungsverzeichnis}%
-\markboth{Abbildungsverzeichnis}{Abbildungsverzeichnis}
-
-\newpage
-\section*{AI-Verzeichnis}
-\markboth{AI-Verzeichnis}{AI-Verzeichnis}
-\noindent
-\thispagestyle{empty}
-
- \begin{itemize}
-     \item ChatGPT 4o und o1-preview
-     \item Consensus AI
-     \item Perplexity
-     \item DeepL
- \end{itemize}
-\newpage
-
-\section*{Ehrenwörtliche Erklärung}
-\markboth{hrenwörtliche Erklärung}{hrenwörtliche Erklärung}
-\noindent
-\thispagestyle{empty}
-
-\input{Erklaerung.tex}
-
-\newpage
 \end{document}

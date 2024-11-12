@@ -1,0 +1,11 @@
+{
+    "language": "en,de",  // This line sets both English and German as recognized languages
+    "dictionaries": ["german", "en_us"],  // Include German dictionary along with others if needed
+    "dictionaryDefinitions": [
+      {
+        "name": "german",
+        "path": "./path/to/german-dictionary.txt"
+      }
+    ]
+  }
+  

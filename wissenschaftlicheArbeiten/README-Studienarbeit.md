@@ -5,6 +5,7 @@ Install the following extensions (the list format is name followed by extension 
 - LaTeX: mathematic.vscode-latex
 - LaTeX Workshop: James-Yu.latex-workshop
 - LaTeX language support: torn4dom4n.latex-support
+- German - Code Spell Checker: streetsidesoftware.code-spell-checker-german
 
 Follow this instruction for your OS: <https://mathjiajia.github.io/vscode-and-latex/>
 
