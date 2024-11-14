@@ -9,7 +9,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[bookmarks]{hyperref}
 \usepackage[ngerman]{babel}
-\usepackage{acronym} 
+\usepackage{acronym} %% I HAVE NO IDEA WHY THERE IS AN ERROR HERE.
 \usepackage[T1]{fontenc}
 \usepackage[utf8]
 {inputenc}
@@ -59,8 +59,8 @@
 \usepackage{listings}
 \usepackage{xcolor}
 
-\addbibresource{literature.bib}  
-\bibliography{literature}
+\addbibresource{./literature.bib}  
+\bibliography{./literature.bib}
 
 %\usepackage{fontspec}
 
@@ -221,6 +221,13 @@ Ort, Datum     && Ausbilder*in HZB
 
 \newpage
 
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}%
+\markboth{Abstract}{Abstract}
+\noindent
+\input{./abstract.tex}
+
+\newpage
 
 \tableofcontents
 \newpage
@@ -230,6 +237,10 @@ Ort, Datum     && Ausbilder*in HZB
 
 \addcontentsline{toc}{section}{\protect\numberline{}Akronyme}
     \acro{knowlegdeGraphs}[KG]{Knowlegde Graphs}
+    \acro{hwr}[HWR]{Hochschule für Wirtschaft und Recht}
+    \acro{OpenIE}[OpenIE]{Open Information Extraction}
+    \acro{ML}[ML]{Maschinelles Lernen}
+    \acro{TSP:GT}[TSP]{Traveling Salesman Probelem}
 
 \end{acronym}
 
@@ -249,12 +260,12 @@ Ort, Datum     && Ausbilder*in HZB
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%  Hauptteil  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\input{content.tex}
+\input{./content.tex}
 
 \newpage
-\addcontentsline{toc}{section}{Bibliography}
+\addcontentsline{toc}{section}{Bibliothek}
 \markboth{Bibliography}{Bibliography}
-\printbibliography[title=Bibliography]
+\printbibliography[title=Bibliothek]
 
 \newpage
 \listoffigures
@@ -262,6 +273,25 @@ Ort, Datum     && Ausbilder*in HZB
 \markboth{Abbildungsverzeichnis}{Abbildungsverzeichnis}
 
 \newpage
+\section*{AI-Verzeichnis}
+\markboth{AI-Verzeichnis}{AI-Verzeichnis}
+\noindent
+\thispagestyle{empty}
+
+ \begin{itemize}
+     \item ChatGPT 4o und o1-preview
+     \item Consensus AI
+     \item Perplexity
+     \item DeepL
+ \end{itemize}
+\newpage
+
+\section*{Ehrenwörtliche Erklärung}
+\markboth{hrenwörtliche Erklärung}{hrenwörtliche Erklärung}
+\noindent
+\thispagestyle{empty}
+
+\input{./Erklaerung.tex}
 
 \newpage
 \end{document}
