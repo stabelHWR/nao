@@ -98,8 +98,11 @@ NetworkX ist ein Python-Paket, welches die Erstellung, Bearbeitung und Untersuch
 \subsection{Ontologie}
 
 \subsubsection{Beschreibung}
+Ontologie im NLP beinhaltet die Verwendung eines strukturierten Rahmens zur Repräsentation von Wissen innerhalb einer bestimmten Domäne und erleichtert Aufgaben. Die Ontologie zeigt Eigenschaften und Beziehungen zwischen einer Reihe von Konzepten und Kategorien innerhalb der Domäne auf. Ein Beispiel für die Anwendung von Ontologie wäre, dass eine Maschine die Bedeutung des Wortes „Diamond“ in Bezug auf einen Baseballspieler, einen Juwelier oder eine Kartenfarbe genau interpretieren kann. In NLP wird Ontologie zum Beispiel zur Wiederauffindung von Informationen, dem Beantworten von Fragen und dem Annotieren von Entitäten eingesetzt, da sie semantisch angereicherte Antworten in ihren Domänen liefern \cite{Adelkhah2019The} \cite{Naderian2018Ontology}.
+
+\subsubsection{Implementierung}
 % do we event want to write about it, becaue: 
-% Should we do an entire new database system just to query faster? 
+% Should we do an entire new database system just to query faster? 
 % Should we do an entire new data representation? 
 
 % Why am I asking? 
@@ -109,9 +112,23 @@ NetworkX ist ein Python-Paket, welches die Erstellung, Bearbeitung und Untersuch
 % 3. Import it in python 
 % 4. Query it with existing libraries in python 
 
+% sollten wir das machen, wenn sehr vieles in der Vektor suche auf Grafen basiert?
+\subsection{Vektor Suche}
 
-% Kommentar1%
-
+\subsection{Latent semantic analysis}
+\ac{LSA} ist eine statistische Methode zur Schätzung der Wortbedeutungen. Diese Bedeutung basiert auf zugrunde liegenden Konzepten. Diese Konzepte werden durch Matrixoperationen extrahiert, die auf beobachteten Mustern der Wortverwendung basieren.
+Die grundlegende Idee hinter LSA ist, dass die Bedeutung jedes Textabschnitts als Summe der Bedeutungen der darin enthaltenen Einzelwörter ist, 
+während eine Sammlung von Dokumenten (ein „Korpus“) als ein Geleichhungssystem dargestellt wird, welches die Ähnlichkeit von Wörtern zu anderen Wörtern und Dokumenten zu anderen Dokumenten zueinander bestimmen kann.
+LSA stellt die Beziehung zwischen Dokumenten und Begriffen durch eine Term-Dokument-Matrix dar, die durch \ac{SVD} weiter in das Produkt von drei Matrizen zerlegt wird. SVD ist das mathematische Werkzeug hinter LSA \cite{TheUseofLatentSemanticAnalysis}. Es ist eine grundlegende 
+Matrixfaktorisierungstechnik in der linearen Algebra mit vielseitigen Anwendungsbereichen \cite{Paige1981Towards}. Es zerlegt eine Matrix A in drei Matrizen \ref{fig:SVD}.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\textwidth]{../images/SVD.png}
+    \label{fig:SVD}
+\end{figure}
+Für eine gegebene Abfrage transformiert LSA diese in einen Pseudo-Dokumentenvektor und berechnet die Ähnlichkeiten mithilfe des SVD-Ergebnis aus der Term-Dokument-Matrix zwischen der Abfrage und dem durchsuchten Dokumenten \cite{SystematicReviewofSemanticAnalysisMethods_2023} .
+Im Gegensatz zu präzisen Abgleichmethoden wird die Matrix durch SVD zerlegt, was sie in einen neuen Raum mit niedriger Dimension komprimiert.SVD kann nicht nur die Datenmenge reduzieren, sondern auch die zugrunde liegenden Beziehungen zwischen Begriffen erkennen. 
+Aus den oben genannten Gründen, gilt LSA als eine sehr flexible Technik ist und wird oft in der Sprachsuche benutzt wird \cite{TextMiningUsingLatentSemanticAnalysis} .
 
 \begin{enumerate}
     \item \textbf{Fett 1} Nummerierte liste 1
