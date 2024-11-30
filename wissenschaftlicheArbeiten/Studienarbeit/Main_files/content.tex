@@ -3,9 +3,36 @@ Einleitung
 
 \section{Problemstellung}
 TODO
+\section{IST Zustand des Programms}
+Das vorliegende Programm hat das Ziel, Antworten zu spezifischen Fragen aus Audioaufnahmen zu extrahieren. Im Folgenden wird der aktuelle Stand der Implementierung beschrieben. Die wichtigsten schritte erfolgen innerhalb der \texttt{get\_answer} Methode.
+\subsection{Programmbeschreibung}
+\subsubsection{Datenbank und Schlüsselwörter}
+Das System basiert auf drei \ac{db}: der Schlüsselwörter-Datenbank, der Synonyme-Datenbank und der Antworten-Datenbank. Die Schlüsselwörter (\texttt{generic\_term}) sind Begriffe, die mit hoher Wahrscheinlichkeit darauf hinweisen, dass eine bestimmte Frage gestellt wurde. Ein Schlüsselwort kann mehrere Synonyme besitzen. Synonyme werden mithilfe von Oberbegriffen gruppiert, die durch SQL-Abfragen ermittelt werden.
+
+Um eine effektive Zuordnung zu gewährleisten, sind Schlüsselwörter zusammen mit den zugehörigen Antworten in einer Tabelle organisiert. Jede Antwort wird durch eine eindeutige \texttt{case\_id} identifiziert, was eine schnelle und effiziente Suche ermöglicht.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.2\textwidth]{../images/db-diagram.png}
+    \caption{Datenbank-Diagramm}
+    \label{fig:SVD}
+\end{figure}
+
+\subsubsection{Satzanalyse}
+Die Verarbeitung der Audiodaten erfolgt durch eine Tokenisierung, bei der nicht signifikante Wörter (z. B. Artikel) aus dem Satz entfernt werden. Die verbleibenden Wörter werden mit dem NLP-Paket \texttt{spaCy} analysiert, das \ac{POS-Tags} verwendet, um die jeweilige Wortart zu identifizieren.
+Die Gewichtung der Schlüsselwörter basiert auf der Häufigkeit ihres Auftretens. Dies wird in der Methode \texttt{distinct\_list} umgesetzt:
+\[
+\text{Gewichtungswert} = 1 - \frac{\text{Häufigkeit des Wortes}}{\text{Gesamtanzahl aller Schlüsselwörter}}
+\]
+Dieses Verfahren ermöglicht eine priorisierte Analyse seltener, aber wahrscheinlich bedeutungsvoller Wörter. Seltener auftretende Wörter haben in der Regel eine höhere Bedeutung für die Zuordnung.
+
+\subsubsection{Antwortermittlung}
+Zur Bestimmung der passenden Antwort werden die analysierten Wörter mit der Datenbank abgeglichen. Die \texttt{case\_id} mit den meisten Treffern wird durch die Methode \texttt{count\_ids} ermittelt. 
+Die Methode akzeptiert eine Liste von Wörtern als Eingabe und iteriert über diese. Mithilfe von \texttt{db\_connector.get\_caseIDs\_by\_keywords(word)} werden die zugehörigen \texttt{case\_ids} für jedes Schlüsselwort aus der Datenbank abgerufen. Für jede gefundene \texttt{case\_id} wird die Methode \texttt{check\_list} aufgerufen, um die Gewichtung zu aktualisieren. Dabei wird das aktuelle Gewicht für jede \texttt{case\_id} gespeichert. Schließlich wird die \texttt{case\_id} mit dem höchsten Gewicht zurückgegeben.
+Falls mehrere \texttt{case\_ids} mit identischer Gewichtung existieren, erfolgt eine zusätzliche Überprüfung anhand der primären Schlüsselwörter. Die finale Antwort wird mit der Methode \texttt{get\_answer\_from\_db} abgerufen, welche die Antwort für die ermittelte \texttt{case\_id} aus der Datenbank extrahiert und ausgibt.
+
 \subsection{Leistungsfähigkeit}
 Die momentane Performance des Algorithmus wird mit Hilfe der Python-Bibliothek \textit{time} gemessen. Diese Bibliothek bietet Funktionen, die es Entwicklern ermöglichen, mit Zeiten zu arbeiten und verschiedene Zeitoperationen durchzuführen. Um die Zeit zu messen, die seit den Funktionsaufrufen vergangen ist, wird die Differenz zwischen der Endzeit und der Startzeit berechnet. Dazu wird der Timer mit der Funktion \lstinline|time_nc()| initialisiert. Diese Funktion gibt die Anzahl der Nanosekunden seit der Initialisierung des Timers als Integer zurück \cite{pythonTimer}. \lstinline|time_nc()| wurde gewählt, um  potentiellen Präszisionsfehlern, die aufgrund einer Floating Nummer passieren können, zu vermeiden. Die folgende Tabelle zeigt die Messergebnisse: 
-
 \begin{longtable}{|p{5cm}|p{3cm}|p{3.5cm}|p{3cm}|}
 \hline
 \textbf{Frage} & \textbf{Antwort-Algorithmuszeit (ns)} & \textbf{Transkriptionszeit (ns)} & \textbf{Gesamtzeit (ns)} \\
@@ -50,7 +77,7 @@ Was bedeutet PTB? & 14044000 & 307653000 & 323718000 \\
     \item Gesamtzeit: 570804400 ns
 \end{itemize}
 Im folgenden wird die Antwort-Algorithmuszeit analysiert, um Verbesserungspotential im Suchalgorithmus festzustellen. 
-Die Funktionsabfolge wurde in \ref{TODO:AlgorithmusErklärungs:Kapitel} erläutert. 
+Die Funktionsabfolge wurde in \ref{Programmbeschreibung} erläutert. 
 \textbf{Funktion \lstinline|db_connector.get_generic_term|:}
 \begin{itemize}
     \item Beschreibung: Für jedes relevante Wort wird eine Datenbankabfrage durchgeführt, um dessen generische Form zu finden. Dies ist der teuerste Schritt, da jede Abfrage Zeit beansprucht und die Abfragen in einer Schleife ausgeführt werden.
