@@ -120,7 +120,8 @@ Die strukturierte und semantische Darstellungsform von Informationen, wie sie in
 
 \subsubsection{Implementierung}
 Die Implementierung von KGs erfolgte unter Zuhilfenahme der Python-Bibliothek NetworkX in Kombination mit spaCy, einer bereits zuvor im Code verwendeten Python-Bibliothek. Auf spaCy wurde bereits zuvor eingegangen.
-NetworkX ist ein Python-Paket, welches die Erstellung, Bearbeitung und Untersuchung der Struktur, Dynamik und Funktionen komplexer Netzwerke ermöglicht. Die Python-Bibliothek wurde als Werkzeug zur Umsetzung der vorliegenden Anforderungen gewählt. Das Paket ermöglicht es Entwicklern verschiedene Arten von Graphen (bspw. Diagraphen und Multigraphen) aus diversen Datenstrukturen wie Text oder XML zu erstellen oder zu generieren. Zudem können Operationen wie das Löschen von Knoten an Graphen durchgeführt, Graphen analysiert (beispielsweise die Anzahl der Knoten gezählt) oder Algorithmen wie z.B. zum Lösen des \ac{TSP:GT}  implementiert werden \cite{networkX:Docs}. 
+NetworkX ist ein Python-Paket, welches die Erstellung, Bearbeitung und Untersuchung der Struktur, Dynamik und Funktionen komplexer Netzwerke ermöglicht. 
+Die  Das Paket ermöglicht es Entwicklern verschiedene Arten von Graphen (bspw. Diagraphen und Multigraphen) aus diversen Datenstrukturen wie Text oder XML zu erstellen oder zu generieren. Zudem können Operationen wie das Löschen von Knoten an Graphen durchgeführt, Graphen analysiert (beispielsweise die Anzahl der Knoten gezählt) oder Algorithmen wie z.B. zum Lösen des \ac{TSP:GT}  implementiert werden \cite{networkX:Docs}. 
 
 \subsection{Ontologie}
 
@@ -153,9 +154,11 @@ Matrixfaktorisierungstechnik in der linearen Algebra mit vielseitigen Anwendungs
     \includegraphics[width=0.2\textwidth]{../images/SVD.png}
     \label{fig:SVD}
 \end{figure}
-Für eine gegebene Abfrage transformiert LSA diese in einen Pseudo-Dokumentenvektor und berechnet die Ähnlichkeiten mithilfe des SVD-Ergebnis aus der Term-Dokument-Matrix zwischen der Abfrage und dem durchsuchten Dokumenten \cite{SystematicReviewofSemanticAnalysisMethods_2023} .
+Für eine gegebene Abfrage transformiert LSA diese in einen Pseudo-Dokumentenvektor und berechnet die Ähnlichkeiten mithilfe des SVD-Ergebnis aus der Term-Dokument-Matrix zwischen 
+der Abfrage und dem durchsuchten Dokumenten \cite{SystematicReviewofSemanticAnalysisMethods_2023} .
 Im Gegensatz zu präzisen Abgleichmethoden wird die Matrix durch SVD zerlegt, was sie in einen neuen Raum mit niedriger Dimension komprimiert.SVD kann nicht nur die Datenmenge reduzieren, sondern auch die zugrunde liegenden Beziehungen zwischen Begriffen erkennen. 
-Aus den oben genannten Gründen, gilt LSA als eine sehr flexible Technik ist und wird oft in der Sprachsuche benutzt wird \cite{TextMiningUsingLatentSemanticAnalysis} .
+Aus den oben genannten Gründen, gilt LSA als eine sehr flexible Technik ist und wird oft in der Sprachsuche benutzt wird 
+\cite{TextMiningUsingLatentSemanticAnalysis}.
 
 \begin{enumerate}
     \item \textbf{Fett 1} Nummerierte liste 1
