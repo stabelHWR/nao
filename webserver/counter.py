@@ -1,16 +1,16 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 from typing import Any, Dict, List, Optional
-import db_connector
-from mariadb import Cursor
+from webserver.neo4j_connection import Neo4jConnection
+from webserver.neo4j_connector import Neo4jConnector as neo4j_connector
 
 
-def count_ids(question: List[str], cur: Cursor) -> Optional[int]:
+def count_ids(question: List[str], connection: Neo4jConnection) -> Optional[int]:
     """
     Counts IDs based on the given question and returns the highest-scoring case ID.
 
     :param question: A list of words from the question.
-    :param cur: The database cursor.
+    :param connection: The database connection.
     :return: The case ID with the highest score, or None if no case ID is found.
     """
     counter = None
@@ -21,10 +21,10 @@ def count_ids(question: List[str], cur: Cursor) -> Optional[int]:
         return None
 
     # Retrieve all keyword weights at once
-    keyword_weights = db_connector.get_weights_of_keywords(unique_words, cur)
+    keyword_weights = neo4j_connector.get_weights_of_keywords(unique_words, connection)
 
     # Retrieve all case IDs for the question words at once
-    word_caseIDs = db_connector.get_caseIDs_by_keywords(unique_words, cur)
+    word_caseIDs = neo4j_connector.get_caseIDs_by_keywords(unique_words, connection)
 
     for word in unique_words:
         keyword_weight = keyword_weights.get(word, 0)
@@ -36,7 +36,7 @@ def count_ids(question: List[str], cur: Cursor) -> Optional[int]:
         for case_id in case_ids:
             counter = check_list(counter, case_id, keyword_weight)
 
-    return check_for_highest_id(question, counter, cur)
+    return check_for_highest_id(question, counter, connection)
 
 def check_list(counter: Optional[List[Dict[str, Any]]], case_id: int, weight: float) -> List[Dict[str, Any]]:
     if counter is None:
@@ -56,7 +56,7 @@ def check_list(counter: Optional[List[Dict[str, Any]]], case_id: int, weight: fl
 def check_for_highest_id(
     question: List[str],
     counter: List[Dict[str, Any]],
-    cur: Cursor
+    connection: Neo4jConnection
 ) -> Optional[int]:
     """
     Determines the case ID with the highest count from the counter list.
@@ -64,7 +64,7 @@ def check_for_highest_id(
 
     :param question: List of words from the question.
     :param counter: List of dictionaries with 'case_id' and 'count' keys.
-    :param cur: The database cursor.
+    :param connection: The database connection.
     :return: The case ID with the highest score, or None if counter is empty.
     """
     if not counter:
@@ -83,15 +83,15 @@ def check_for_highest_id(
         # Resolve tie using check_for_higher_id
         current_case_id = top_case_ids[0]
         for case_id in top_case_ids[1:]:
-            resolved_case_id = check_for_higher_id(question, current_case_id, case_id, cur)
+            resolved_case_id = check_for_higher_id(question, current_case_id, case_id, connection)
             if resolved_case_id is not None and resolved_case_id != current_case_id:
                 current_case_id = resolved_case_id
         return current_case_id
 
 
-def check_for_higher_id(question: list, case_id: int, new_case_id: int, cur:Cursor) -> int:
-    case_id_keywords = db_connector.get_primary_keywords_by_caseID(case_id, cur)
-    new_case_id_keywords = db_connector.get_primary_keywords_by_caseID(new_case_id, cur)
+def check_for_higher_id(question: list, case_id: int, new_case_id: int, connection:Neo4jConnection) -> int:
+    case_id_keywords = neo4j_connector.get_primary_keywords_by_caseID(case_id, connection)
+    new_case_id_keywords = neo4j_connector.get_primary_keywords_by_caseID(new_case_id, connection)
     if case_id_keywords is None or new_case_id_keywords is None:
         return None
     
