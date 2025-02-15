@@ -8,13 +8,13 @@ from weighting import setup as weighting_setup
 import traceback
 
 import counter
-import db_connector
+from neo4j_connector import Neo4jConnector
 import sentence_algorithm
 from transcription import transcribe
 import time
 
-cursor = getDbConnection()
-weighting_setup(cursor)
+connection = getDbConnection()
+weighting_setup(connection)
 # load german spacy model
 nlp = spacy.load("de_core_news_sm")
 app = Flask(__name__)
@@ -33,17 +33,17 @@ def get_answer(question):
     # Get generic form of each word
     for i, word in enumerate(found_words):
         found_words[i] = word.lower()
-        wd = db_connector.get_generic_term(found_words[i], cursor)
+        wd = Neo4jConnector.get_generic_term(found_words[i], connection)
         if wd is not None:
             found_words[i] = wd
 
     # Based on weight of each word, get the caseID of the most relevant answer
-    caseID = counter.count_ids(found_words, cursor)
+    caseID = counter.count_ids(found_words, connection)
     if caseID is None:
         return "Ich habe diese Frage nicht verstanden oder ich habe dazu leider keine Antwort."
 
     # Get answer with caseID from database
-    answer = db_connector.get_answer_from_db(caseID, cursor)
+    answer = Neo4jConnector.get_answer_from_db(caseID, connection)
     if answer is None:
         return "Ich habe keine Antwort auf deise Frage."
 

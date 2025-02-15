@@ -1,15 +1,15 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
 
-import db_connector
-from mariadb import Cursor
+from neo4j_connector import Neo4jConnector
+from neo4j_connection import Neo4jConnection
 
 # calculate weightings of distinct keywords from input list
 # TODO: check if calculation of weighting is correct
 
 
-def calculate_weight(cur: Cursor) -> list:
-    keywords = db_connector.get_all_keywords(cur)
+def calculate_weight(connection: Neo4jConnection) -> list:
+    keywords = Neo4jConnector.get_all_keywords(connection)
     weightings = []
     keywords_amount = len(keywords)
     for word in keywords:
@@ -39,12 +39,16 @@ def distinct_list(weightings: list, keyword: str) -> list:
         return weightings
 
 
-def setup(cur: Cursor):
+def setup(connection: Neo4jConnection):
     # Calculate weights
-    weights = calculate_weight(cur)
+    weights = calculate_weight(connection)
     
     # Ensure the data is in the correct format (list of tuples)
     weights_data = [(weight["keyword"], weight["count"]) for weight in weights]
     
     # Insert weights into the database
-    db_connector.insert_weights(weights_data, cur)
+    Neo4jConnector.insert_weights(weights_data, connection)
+
+connection = Neo4jConnection()
+connection.open()
+setup(connection)
