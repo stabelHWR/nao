@@ -1,15 +1,14 @@
 from neo4j_connection import Neo4jConnection
 import json
 from typing import Optional
+import timeit
 
 class Neo4jConnector:
     def get_all_keywords(connection: Neo4jConnection) -> list:
         """
         Retrieves all unique keywords from primary_keywords and secondary_keywords
-        in the matching_table, fetched in batches.
-
-        :param cur: The database cursor.
-        :param batch_size: The number of rows to fetch in each batch.
+        in the matching_table.
+        :param connection: The database connection.
         :return: A list of unique keywords.
         """
         # To store unique keywords
@@ -19,7 +18,14 @@ class Neo4jConnector:
         keywords = connection.query(query, field_name="g.generic_term")
         return keywords
 
-    def get_generic_term(synonym: str, connection: Neo4jConnection) -> str:
+    def get_generic_term(synonym: str, connection: Neo4jConnection) -> str|None:
+        """
+        checks if given word has a synonym and returns the synonym if not returns None
+
+        :param synonym: word to check for synonym
+        :param connection: the databas connection
+        :return : synonym
+        """
         # Execute the query to get the synonym ID
         gen_term = connection.query("MATCH (g:GenericTerm)-[IS_SYNONYM_OF]->(g2:GenericTerm) WHERE g.generic_term=\""+synonym+ "\" Return g2.generic_term" ,field_name="g2.generic_term")
         if gen_term == [] :
@@ -48,7 +54,7 @@ class Neo4jConnector:
         Retrieves case IDs for a list of words.
 
         :param words: The list of words to look up.
-        :param cur: The database cursor.
+        :param connection: The database connection.
         :return: A dictionary mapping each word to a set of case IDs.
         """
         unique_words = list(set(words))
@@ -72,11 +78,10 @@ class Neo4jConnector:
 
     def get_weights_of_keywords(keywords: list[str], connection: Neo4jConnection) -> dict[str, float]:
         """
-        Retrieves the weights for a list of keywords from the weights table using batch requests.
-        Handles large lists by chunking.
+        Retrieves the weights for a list of keywords.
 
         :param keywords: The list of keywords to look up.
-        :param cur: The database cursor.
+        :param connection: The database connection.
         :return: A dictionary mapping each keyword to its weight.
         """
         unique_keywords = list(set(keywords))
@@ -96,10 +101,10 @@ class Neo4jConnector:
         return keyword_weights
     def get_primary_keywords_by_caseID(caseID: int, connection: Neo4jConnection) -> Optional[str]:
         """
-        Retrieves the primary keywords associated with a given caseID from the matching_table.
+        Retrieves the primary keywords associated with a given caseID.
 
         :param caseID: The case ID to look up.
-        :param cur: The database cursor.
+        :param connection: The database connection.
         :return: The primary keywords as a string if found, otherwise None.
         """
         # Use a parameterized query to prevent SQL injection
@@ -110,9 +115,9 @@ class Neo4jConnector:
 
     def get_weights(connection: Neo4jConnection) -> str:
         """
-        Retrieves all keywords and their weights from the weights table and returns them as a JSON string.
+        Retrieves all keywords and their weights and returns them as a JSON string.
 
-        :param cur: The database cursor.
+        :param connection: The database connection.
         :return: A JSON string containing a list of dictionaries with 'keyword' and 'weight'.
         """
         records = connection.query("MATCH (a:Answer)-[r]->(g:GenericTerm)  Return distinct g.generic_term, r.weight")
@@ -123,5 +128,16 @@ class Neo4jConnector:
         return json_str
 
     def insert_weights(data: list[tuple[str, float]], connection: Neo4jConnection):
+        """
+        Saves weights from keyword.
+
+        :param data: keyword and weight
+        :param connection: The database connection.
+        """
         for tupl in data:
             connection.execute_query("MATCH (a:Answer)-[r]->(g:GenericTerm) Where g.generic_term = \""+tupl[0]+"\" SET r.weight = "+str(tupl[1]))
+
+connection = Neo4jConnection()
+connection.open()
+laufzeit = timeit.timeit(lambda: Neo4jConnector.insert_weights([("haben", 0.5),("brauchen", 0.1)], connection),number=1)
+print (laufzeit)
